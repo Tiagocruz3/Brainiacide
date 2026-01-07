@@ -1,3 +1,5 @@
+/* JARVIS Holographic Animations */
+
 .animated {
   animation-fill-mode: both;
   animation-duration: var(--animate-duration, 0.2s);
@@ -46,4 +48,248 @@
     opacity: 1;
     transform: translateY(6px);
   }
+}
+
+/* JARVIS Holographic Glow Pulse */
+@keyframes jarvis-glow-pulse {
+  0%, 100% {
+    box-shadow: 
+      0 0 5px rgba(0, 212, 255, 0.4),
+      0 0 20px rgba(0, 212, 255, 0.2),
+      inset 0 0 15px rgba(0, 212, 255, 0.1);
+  }
+  50% {
+    box-shadow: 
+      0 0 10px rgba(0, 212, 255, 0.6),
+      0 0 40px rgba(0, 212, 255, 0.3),
+      inset 0 0 25px rgba(0, 212, 255, 0.15);
+  }
+}
+
+/* Text glow animation */
+@keyframes jarvis-text-glow {
+  0%, 100% {
+    text-shadow: 
+      0 0 5px rgba(0, 212, 255, 0.5),
+      0 0 15px rgba(0, 212, 255, 0.3);
+  }
+  50% {
+    text-shadow: 
+      0 0 10px rgba(0, 212, 255, 0.7),
+      0 0 25px rgba(0, 212, 255, 0.4),
+      0 0 35px rgba(0, 212, 255, 0.2);
+  }
+}
+
+/* Border glow animation */
+@keyframes jarvis-border-glow {
+  0%, 100% {
+    border-color: rgba(0, 212, 255, 0.3);
+    box-shadow: 0 0 10px rgba(0, 212, 255, 0.2);
+  }
+  50% {
+    border-color: rgba(0, 212, 255, 0.6);
+    box-shadow: 0 0 20px rgba(0, 212, 255, 0.4);
+  }
+}
+
+/* Scan line animation */
+@keyframes jarvis-scanline {
+  0% {
+    transform: translateY(-100%);
+  }
+  100% {
+    transform: translateY(100vh);
+  }
+}
+
+/* Holographic shimmer */
+@keyframes jarvis-shimmer {
+  0% {
+    background-position: -200% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
+}
+
+/* Data stream animation */
+@keyframes jarvis-data-stream {
+  0% {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  10% {
+    opacity: 1;
+  }
+  90% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+}
+
+/* Circle pulse for loading indicators */
+@keyframes jarvis-circle-pulse {
+  0%, 100% {
+    transform: scale(1);
+    opacity: 0.5;
+  }
+  50% {
+    transform: scale(1.1);
+    opacity: 1;
+  }
+}
+
+/* Arc reactor glow */
+@keyframes jarvis-reactor-glow {
+  0%, 100% {
+    box-shadow: 
+      0 0 10px rgba(0, 212, 255, 0.5),
+      0 0 20px rgba(0, 212, 255, 0.3),
+      0 0 30px rgba(0, 212, 255, 0.2),
+      inset 0 0 15px rgba(0, 212, 255, 0.3);
+  }
+  50% {
+    box-shadow: 
+      0 0 20px rgba(0, 212, 255, 0.7),
+      0 0 40px rgba(0, 212, 255, 0.5),
+      0 0 60px rgba(0, 212, 255, 0.3),
+      inset 0 0 25px rgba(0, 212, 255, 0.4);
+  }
+}
+
+/* Typing cursor blink */
+@keyframes jarvis-cursor-blink {
+  0%, 50% {
+    opacity: 1;
+    box-shadow: 0 0 8px rgba(0, 212, 255, 0.8);
+  }
+  51%, 100% {
+    opacity: 0.3;
+    box-shadow: 0 0 3px rgba(0, 212, 255, 0.4);
+  }
+}
+
+/* HUD element fade in */
+@keyframes jarvis-hud-fadein {
+  0% {
+    opacity: 0;
+    transform: scale(0.95) translateY(-5px);
+    filter: blur(5px);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+    filter: blur(0);
+  }
+}
+
+/* Grid background animation */
+@keyframes jarvis-grid-move {
+  0% {
+    background-position: 0 0, 0 0;
+  }
+  100% {
+    background-position: 50px 50px, 50px 50px;
+  }
+}
+
+/* Holographic flicker effect */
+@keyframes jarvis-flicker {
+  0%, 100% {
+    opacity: 1;
+  }
+  92% {
+    opacity: 1;
+  }
+  93% {
+    opacity: 0.8;
+  }
+  94% {
+    opacity: 1;
+  }
+  97% {
+    opacity: 0.9;
+  }
+  98% {
+    opacity: 1;
+  }
+}
+
+/* Utility classes for animations */
+.jarvis-glow-pulse {
+  animation: jarvis-glow-pulse 3s ease-in-out infinite;
+}
+
+.jarvis-text-glow {
+  animation: jarvis-text-glow 2s ease-in-out infinite;
+}
+
+.jarvis-border-glow {
+  animation: jarvis-border-glow 2s ease-in-out infinite;
+}
+
+.jarvis-shimmer {
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(0, 212, 255, 0.1) 50%,
+    transparent 100%
+  );
+  background-size: 200% 100%;
+  animation: jarvis-shimmer 3s linear infinite;
+}
+
+.jarvis-hud-fadein {
+  animation: jarvis-hud-fadein 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.jarvis-flicker {
+  animation: jarvis-flicker 8s step-end infinite;
+}
+
+/* Hover glow effect for interactive elements */
+.jarvis-hover-glow {
+  transition: all 0.3s ease;
+  
+  &:hover {
+    box-shadow: 
+      0 0 15px rgba(0, 212, 255, 0.4),
+      0 0 30px rgba(0, 212, 255, 0.2);
+    border-color: rgba(0, 212, 255, 0.6);
+  }
+}
+
+/* Continuous scanline overlay */
+.jarvis-scanlines::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: var(--jarvis-scanlines);
+  pointer-events: none;
+  z-index: 1000;
+}
+
+/* Animated scan beam */
+.jarvis-scan-beam::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(0, 212, 255, 0.8) 50%,
+    transparent 100%
+  );
+  animation: jarvis-scanline 4s linear infinite;
+  pointer-events: none;
 }

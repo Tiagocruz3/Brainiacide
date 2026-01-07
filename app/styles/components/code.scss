@@ -1,3 +1,5 @@
+/* JARVIS Holographic Code Block Styles */
+
 .actions .shiki {
   background-color: var(--bolt-elements-actions-code-background) !important;
 }
@@ -5,5 +7,123 @@
 .shiki {
   &:not(:has(.actions), .actions *, .mcp-tool-invocation-code *) {
     background-color: var(--bolt-elements-messages-code-background) !important;
+  }
+  
+  /* Holographic code block container */
+  border-radius: 8px;
+  border: 1px solid rgba(0, 212, 255, 0.15);
+  position: relative;
+  overflow: hidden;
+  
+  /* Top glow line */
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background: linear-gradient(
+      90deg,
+      transparent 0%,
+      rgba(0, 212, 255, 0.3) 50%,
+      transparent 100%
+    );
+    z-index: 1;
+  }
+  
+  /* Subtle scan line overlay */
+  &::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: repeating-linear-gradient(
+      0deg,
+      transparent,
+      transparent 2px,
+      rgba(0, 212, 255, 0.01) 2px,
+      rgba(0, 212, 255, 0.01) 4px
+    );
+    pointer-events: none;
+    z-index: 1;
+  }
+  
+  code {
+    font-family: 'JetBrains Mono', 'Fira Code', 'Consolas', monospace;
+    text-shadow: 0 0 1px rgba(0, 212, 255, 0.2);
+  }
+}
+
+/* Inline code styling */
+:not(pre) > code {
+  background: rgba(0, 212, 255, 0.1) !important;
+  border: 1px solid rgba(0, 212, 255, 0.2);
+  border-radius: 4px;
+  padding: 2px 6px;
+  color: #00d4ff;
+  font-family: 'JetBrains Mono', 'Fira Code', 'Consolas', monospace;
+  font-size: 0.9em;
+}
+
+/* Syntax highlighting color overrides for JARVIS theme */
+html[data-theme='dark'] {
+  .shiki {
+    /* Comments */
+    .token.comment,
+    .token.prolog,
+    .token.doctype,
+    .token.cdata {
+      color: rgba(0, 212, 255, 0.4);
+    }
+    
+    /* Strings */
+    .token.string,
+    .token.attr-value {
+      color: #00ff88;
+    }
+    
+    /* Keywords */
+    .token.keyword,
+    .token.tag {
+      color: #00aaff;
+    }
+    
+    /* Functions */
+    .token.function {
+      color: #ffaa00;
+    }
+    
+    /* Numbers */
+    .token.number {
+      color: #aa55ff;
+    }
+    
+    /* Operators */
+    .token.operator {
+      color: #00d4ff;
+    }
+    
+    /* Punctuation */
+    .token.punctuation {
+      color: rgba(0, 212, 255, 0.6);
+    }
+    
+    /* Variables */
+    .token.variable {
+      color: #00f0ff;
+    }
+    
+    /* Classes */
+    .token.class-name {
+      color: #ffcc00;
+    }
+    
+    /* Boolean */
+    .token.boolean {
+      color: #ff5566;
+    }
   }
 }

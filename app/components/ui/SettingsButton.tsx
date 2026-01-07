@@ -1,5 +1,6 @@
 import { memo } from 'react';
 import { IconButton } from '~/components/ui/IconButton';
+
 interface SettingsButtonProps {
   onClick: () => void;
 }
@@ -12,7 +13,7 @@ export const SettingsButton = memo(({ onClick }: SettingsButtonProps) => {
       size="xl"
       title="Settings"
       data-testid="settings-button"
-      className="text-[#666] hover:text-bolt-elements-textPrimary hover:bg-bolt-elements-item-backgroundActive/10 transition-colors"
+      className="text-cyan-500/60 hover:text-cyan-400 hover:bg-cyan-500/10 hover:shadow-[0_0_10px_rgba(0,212,255,0.15)] transition-all"
     />
   );
 });
@@ -29,7 +30,7 @@ export const HelpButton = memo(({ onClick }: HelpButtonProps) => {
       size="xl"
       title="Help & Documentation"
       data-testid="help-button"
-      className="text-[#666] hover:text-bolt-elements-textPrimary hover:bg-bolt-elements-item-backgroundActive/10 transition-colors"
+      className="text-cyan-500/60 hover:text-cyan-400 hover:bg-cyan-500/10 hover:shadow-[0_0_10px_rgba(0,212,255,0.15)] transition-all"
     />
   );
 });

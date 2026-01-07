@@ -19,71 +19,119 @@ const customIconCollection = iconPaths.reduce(
   {} as Record<string, Record<string, () => Promise<string>>>,
 );
 
+/* JARVIS Holographic Color Palette */
 const BASE_COLORS = {
   white: '#FFFFFF',
+  /* Holographic cyan spectrum */
+  cyan: {
+    50: '#E0FBFF',
+    100: '#B3F5FF',
+    200: '#80EEFF',
+    300: '#4DE7FF',
+    400: '#26E1FF',
+    500: '#00D4FF', /* Primary JARVIS cyan */
+    600: '#00AACC',
+    700: '#008099',
+    800: '#005566',
+    900: '#002B33',
+    950: '#001A1F',
+  },
+  /* Deep space backgrounds */
   gray: {
-    50: '#FAFAFA',
-    100: '#F5F5F5',
-    200: '#E5E5E5',
-    300: '#D4D4D4',
-    400: '#A3A3A3',
-    500: '#737373',
-    600: '#525252',
-    700: '#404040',
-    800: '#262626',
-    900: '#171717',
-    950: '#0A0A0A',
+    50: '#E8F4F8',
+    100: '#D0E8F0',
+    200: '#A8D4E0',
+    300: '#70B8C8',
+    400: '#409CAA',
+    500: '#207080',
+    600: '#104050',
+    700: '#082838',
+    800: '#041820', /* JARVIS bg-panel */
+    900: '#020C10', /* JARVIS bg-dark */
+    950: '#000408', /* JARVIS bg-deepspace */
   },
+  /* Accent gold for warnings/highlights */
   accent: {
-    50: '#F8F5FF',
-    100: '#F0EBFF',
-    200: '#E1D6FF',
-    300: '#CEBEFF',
-    400: '#B69EFF',
-    500: '#9C7DFF',
-    600: '#8A5FFF',
-    700: '#7645E8',
-    800: '#6234BB',
-    900: '#502D93',
-    950: '#2D1959',
+    50: '#FFF8E6',
+    100: '#FFEFC2',
+    200: '#FFE08A',
+    300: '#FFCC4D',
+    400: '#FFB800',
+    500: '#FFAA00', /* JARVIS gold */
+    600: '#CC8800',
+    700: '#996600',
+    800: '#664400',
+    900: '#332200',
+    950: '#1A1100',
   },
+  /* Alert green for success states */
   green: {
-    50: '#F0FDF4',
-    100: '#DCFCE7',
-    200: '#BBF7D0',
-    300: '#86EFAC',
-    400: '#4ADE80',
-    500: '#22C55E',
-    600: '#16A34A',
-    700: '#15803D',
-    800: '#166534',
-    900: '#14532D',
-    950: '#052E16',
+    50: '#E6FFF2',
+    100: '#B3FFD9',
+    200: '#80FFC0',
+    300: '#4DFFA7',
+    400: '#26FF94',
+    500: '#00FF88', /* JARVIS success green */
+    600: '#00CC6D',
+    700: '#009952',
+    800: '#006636',
+    900: '#00331B',
+    950: '#001A0E',
   },
+  /* Warning/status orange */
   orange: {
-    50: '#FFFAEB',
-    100: '#FEEFC7',
-    200: '#FEDF89',
-    300: '#FEC84B',
-    400: '#FDB022',
-    500: '#F79009',
-    600: '#DC6803',
-    700: '#B54708',
-    800: '#93370D',
-    900: '#792E0D',
+    50: '#FFF4E6',
+    100: '#FFE4C2',
+    200: '#FFCC8A',
+    300: '#FFB34D',
+    400: '#FF9900',
+    500: '#FF8000',
+    600: '#CC6600',
+    700: '#994D00',
+    800: '#663300',
+    900: '#331A00',
   },
+  /* Alert red for errors/dangers */
   red: {
-    50: '#FEF2F2',
-    100: '#FEE2E2',
-    200: '#FECACA',
-    300: '#FCA5A5',
-    400: '#F87171',
-    500: '#EF4444',
-    600: '#DC2626',
-    700: '#B91C1C',
-    800: '#991B1B',
-    900: '#7F1D1D',
-    950: '#450A0A',
+    50: '#FFE6E9',
+    100: '#FFB3BB',
+    200: '#FF808C',
+    300: '#FF4D5E',
+    400: '#FF334F', /* JARVIS alert red */
+    500: '#FF1A3D',
+    600: '#CC1530',
+    700: '#991024',
+    800: '#660A18',
+    900: '#33050C',
+    950: '#1A0306',
+  },
+  /* Electric blue for secondary accents */
+  blue: {
+    50: '#E6F4FF',
+    100: '#B3DDFF',
+    200: '#80C6FF',
+    300: '#4DAFFF',
+    400: '#2699FF',
+    500: '#0088FF', /* JARVIS electric blue */
+    600: '#006DCC',
+    700: '#005299',
+    800: '#003666',
+    900: '#001B33',
+    950: '#000E1A',
+  },
+  /* Purple for special effects */
+  purple: {
+    50: '#F2E6FF',
+    100: '#D9B3FF',
+    200: '#C080FF',
+    300: '#A64DFF',
+    400: '#9933FF',
+    500: '#AA55FF', /* JARVIS purple */
+    600: '#8844CC',
+    700: '#663399',
+    800: '#442266',
+    900: '#221133',
+    950: '#110A1A',
   },
 };
 
@@ -92,8 +140,11 @@ const COLOR_PRIMITIVES = {
   alpha: {
     white: generateAlphaPalette(BASE_COLORS.white),
     gray: generateAlphaPalette(BASE_COLORS.gray[900]),
-    red: generateAlphaPalette(BASE_COLORS.red[500]),
+    red: generateAlphaPalette(BASE_COLORS.red[400]),
     accent: generateAlphaPalette(BASE_COLORS.accent[500]),
+    cyan: generateAlphaPalette(BASE_COLORS.cyan[500]),
+    green: generateAlphaPalette(BASE_COLORS.green[500]),
+    blue: generateAlphaPalette(BASE_COLORS.blue[500]),
   },
 };
 
@@ -104,6 +155,13 @@ export default defineConfig({
     'transition-theme': 'transition-[background-color,border-color,color] duration-150 bolt-ease-cubic-bezier',
     kdb: 'bg-bolt-elements-code-background text-bolt-elements-code-text py-1 px-1.5 rounded-md',
     'max-w-chat': 'max-w-[var(--chat-max-width)]',
+    /* JARVIS holographic shortcuts */
+    'jarvis-glow': 'shadow-[0_0_20px_rgba(0,212,255,0.3)]',
+    'jarvis-glow-intense': 'shadow-[0_0_30px_rgba(0,212,255,0.5),0_0_60px_rgba(0,212,255,0.2)]',
+    'jarvis-border': 'border border-cyan-500/30 hover:border-cyan-500/60',
+    'jarvis-glass': 'bg-gray-950/85 backdrop-blur-xl border border-cyan-500/20',
+    'jarvis-text': 'text-cyan-500 [text-shadow:0_0_10px_rgba(0,212,255,0.5)]',
+    'jarvis-panel': 'bg-gray-900/80 border border-cyan-500/25 rounded-lg backdrop-blur-md',
   },
   rules: [
     /**
@@ -111,6 +169,12 @@ export default defineConfig({
      * any conflicts with minified CSS classes.
      */
     ['b', {}],
+    /* Custom JARVIS glow rules */
+    ['glow-cyan', { 'box-shadow': '0 0 20px rgba(0, 212, 255, 0.4), 0 0 40px rgba(0, 212, 255, 0.2)' }],
+    ['glow-cyan-text', { 'text-shadow': '0 0 10px rgba(0, 212, 255, 0.6), 0 0 20px rgba(0, 212, 255, 0.3)' }],
+    ['glow-gold', { 'box-shadow': '0 0 20px rgba(255, 170, 0, 0.4), 0 0 40px rgba(255, 170, 0, 0.2)' }],
+    ['glow-red', { 'box-shadow': '0 0 20px rgba(255, 51, 68, 0.4), 0 0 40px rgba(255, 51, 68, 0.2)' }],
+    ['glow-green', { 'box-shadow': '0 0 20px rgba(0, 255, 136, 0.4), 0 0 40px rgba(0, 255, 136, 0.2)' }],
   ],
   theme: {
     colors: {
@@ -227,6 +291,10 @@ export default defineConfig({
           },
         },
       },
+    },
+    fontFamily: {
+      jarvis: ['Orbitron', 'Rajdhani', 'Inter', 'system-ui', 'sans-serif'],
+      mono: ['JetBrains Mono', 'Fira Code', 'Consolas', 'monospace'],
     },
   },
   transformers: [transformerDirectives()],

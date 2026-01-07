@@ -3,6 +3,7 @@ import type { LinksFunction } from '@remix-run/cloudflare';
 import { Links, Meta, Outlet, Scripts, ScrollRestoration } from '@remix-run/react';
 import tailwindReset from '@unocss/reset/tailwind-compat.css?url';
 import { themeStore } from './lib/stores/theme';
+import { isAuthenticatedStore } from './lib/stores/auth';
 import { stripIndents } from './utils/stripIndent';
 import { createHead } from 'remix-island';
 import { useEffect } from 'react';
@@ -10,6 +11,7 @@ import { DndProvider } from 'react-dnd';
 import { HTML5Backend } from 'react-dnd-html5-backend';
 import { ClientOnly } from 'remix-utils/client-only';
 import { cssTransition, ToastContainer } from 'react-toastify';
+import { LoginScreen } from './components/auth/LoginScreen';
 
 import reactToastifyStyles from 'react-toastify/dist/ReactToastify.css?url';
 import globalStyles from './styles/index.scss?url';
@@ -28,6 +30,10 @@ export const links: LinksFunction = () => [
     href: '/favicon.svg',
     type: 'image/svg+xml',
   },
+  {
+    rel: 'apple-touch-icon',
+    href: '/apple-touch-icon.png',
+  },
   { rel: 'stylesheet', href: reactToastifyStyles },
   { rel: 'stylesheet', href: tailwindReset },
   { rel: 'stylesheet', href: globalStyles },
@@ -43,7 +49,7 @@ export const links: LinksFunction = () => [
   },
   {
     rel: 'stylesheet',
-    href: 'https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap',
+    href: 'https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700;800;900&family=Rajdhani:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap',
   },
 ];
 
@@ -116,6 +122,7 @@ import { logStore } from './lib/stores/logs';
 
 export default function App() {
   const theme = useStore(themeStore);
+  const isAuthenticated = useStore(isAuthenticatedStore);
 
   useEffect(() => {
     logStore.logSystem('Application initialized', {
@@ -143,6 +150,11 @@ export default function App() {
         logStore.logError('Failed to initialize debug logging', error);
       });
   }, []);
+
+  // Show login screen if not authenticated
+  if (!isAuthenticated) {
+    return <LoginScreen />;
+  }
 
   return (
     <Layout>

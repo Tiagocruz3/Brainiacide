@@ -1,7 +1,7 @@
 import React from 'react';
 
 const EXAMPLE_PROMPTS = [
-  { text: 'Create a mobile app about bolt.diy' },
+  { text: 'Create a mobile app with Brainiac IDE' },
   { text: 'Build a todo app in React using Tailwind' },
   { text: 'Build a simple blog using Astro' },
   { text: 'Create a cookie consent form using Material UI' },
@@ -25,7 +25,7 @@ export function ExamplePrompts(sendMessage?: { (event: React.UIEvent, messageInp
               onClick={(event) => {
                 sendMessage?.(event, examplePrompt.text);
               }}
-              className="border border-bolt-elements-borderColor rounded-full bg-gray-50 hover:bg-gray-100 dark:bg-gray-950 dark:hover:bg-gray-900 text-bolt-elements-textSecondary hover:text-bolt-elements-textPrimary px-3 py-1 text-xs transition-theme"
+              className="border border-cyan-500/30 rounded-full bg-gray-900/50 hover:bg-cyan-500/10 text-cyan-400/70 hover:text-cyan-300 px-3 py-1 text-xs transition-all hover:border-cyan-500/50 hover:shadow-[0_0_10px_rgba(0,212,255,0.15)] font-['Rajdhani'] tracking-wide"
             >
               {examplePrompt.text}
             </button>

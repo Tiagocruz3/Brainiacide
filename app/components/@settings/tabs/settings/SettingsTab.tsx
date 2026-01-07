@@ -4,21 +4,6 @@ import { toast } from 'react-toastify';
 import { classNames } from '~/utils/classNames';
 import { Switch } from '~/components/ui/Switch';
 import type { UserProfile } from '~/components/@settings/core/types';
-import { isMac } from '~/utils/os';
-
-// Helper to get modifier key symbols/text
-const getModifierSymbol = (modifier: string): string => {
-  switch (modifier) {
-    case 'meta':
-      return isMac ? '⌘' : 'Win';
-    case 'alt':
-      return isMac ? '⌥' : 'Alt';
-    case 'shift':
-      return '⇧';
-    default:
-      return modifier;
-  }
-};
 
 export default function SettingsTab() {
   const [currentTimezone, setCurrentTimezone] = useState('');
@@ -175,41 +160,6 @@ export default function SettingsTab() {
         </div>
       </motion.div>
 
-      {/* Simplified Keyboard Shortcuts */}
-      <motion.div
-        className="bg-white dark:bg-[#0A0A0A] rounded-lg shadow-sm dark:shadow-none p-4"
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ delay: 0.3 }}
-      >
-        <div className="flex items-center gap-2 mb-4">
-          <div className="i-ph:keyboard-fill w-4 h-4 text-purple-500" />
-          <span className="text-sm font-medium text-bolt-elements-textPrimary">Keyboard Shortcuts</span>
-        </div>
-
-        <div className="space-y-2">
-          <div className="flex items-center justify-between p-2 rounded-lg bg-[#FAFAFA] dark:bg-[#1A1A1A]">
-            <div className="flex flex-col">
-              <span className="text-sm text-bolt-elements-textPrimary">Toggle Theme</span>
-              <span className="text-xs text-bolt-elements-textSecondary">Switch between light and dark mode</span>
-            </div>
-            <div className="flex items-center gap-1">
-              <kbd className="px-2 py-1 text-xs font-semibold text-bolt-elements-textSecondary bg-white dark:bg-[#0A0A0A] border border-[#E5E5E5] dark:border-[#1A1A1A] rounded shadow-sm">
-                {getModifierSymbol('meta')}
-              </kbd>
-              <kbd className="px-2 py-1 text-xs font-semibold text-bolt-elements-textSecondary bg-white dark:bg-[#0A0A0A] border border-[#E5E5E5] dark:border-[#1A1A1A] rounded shadow-sm">
-                {getModifierSymbol('alt')}
-              </kbd>
-              <kbd className="px-2 py-1 text-xs font-semibold text-bolt-elements-textSecondary bg-white dark:bg-[#0A0A0A] border border-[#E5E5E5] dark:border-[#1A1A1A] rounded shadow-sm">
-                {getModifierSymbol('shift')}
-              </kbd>
-              <kbd className="px-2 py-1 text-xs font-semibold text-bolt-elements-textSecondary bg-white dark:bg-[#0A0A0A] border border-[#E5E5E5] dark:border-[#1A1A1A] rounded shadow-sm">
-                D
-              </kbd>
-            </div>
-          </div>
-        </div>
-      </motion.div>
-    </div>
+      </div>
   );
 }

@@ -415,15 +415,15 @@ export const ModelSelector = ({
   }
 
   return (
-    <div className="flex gap-2 flex-col sm:flex-row">
+    <div className="flex gap-2 flex-col sm:flex-row w-full overflow-hidden">
       {/* Provider Combobox */}
-      <div className="relative flex w-full" onKeyDown={handleProviderKeyDown} ref={providerDropdownRef}>
+      <div className="relative flex w-full sm:w-[35%] sm:min-w-[120px] sm:max-w-[180px] flex-shrink-0" onKeyDown={handleProviderKeyDown} ref={providerDropdownRef}>
         <div
           className={classNames(
             'w-full p-2 rounded-lg border border-bolt-elements-borderColor',
             'bg-bolt-elements-prompt-background text-bolt-elements-textPrimary',
             'focus-within:outline-none focus-within:ring-2 focus-within:ring-bolt-elements-focus',
-            'transition-all cursor-pointer',
+            'transition-all cursor-pointer overflow-hidden',
             isProviderDropdownOpen ? 'ring-2 ring-bolt-elements-focus' : undefined,
           )}
           onClick={() => setIsProviderDropdownOpen(!isProviderDropdownOpen)}
@@ -439,11 +439,11 @@ export const ModelSelector = ({
           aria-haspopup="listbox"
           tabIndex={0}
         >
-          <div className="flex items-center justify-between">
-            <div className="truncate">{provider?.name || 'Select provider'}</div>
+          <div className="flex items-center justify-between gap-2 min-w-0">
+            <div className="truncate flex-1 min-w-0 text-sm">{provider?.name || 'Select provider'}</div>
             <div
               className={classNames(
-                'i-ph:caret-down w-4 h-4 text-bolt-elements-textSecondary opacity-75',
+                'i-ph:caret-down w-4 h-4 text-bolt-elements-textSecondary opacity-75 flex-shrink-0',
                 isProviderDropdownOpen ? 'rotate-180' : undefined,
               )}
             />
@@ -573,13 +573,13 @@ export const ModelSelector = ({
       </div>
 
       {/* Model Combobox */}
-      <div className="relative flex w-full min-w-[70%]" onKeyDown={handleModelKeyDown} ref={modelDropdownRef}>
+      <div className="relative flex w-full sm:flex-1 min-w-0 overflow-hidden" onKeyDown={handleModelKeyDown} ref={modelDropdownRef}>
         <div
           className={classNames(
             'w-full p-2 rounded-lg border border-bolt-elements-borderColor',
             'bg-bolt-elements-prompt-background text-bolt-elements-textPrimary',
             'focus-within:outline-none focus-within:ring-2 focus-within:ring-bolt-elements-focus',
-            'transition-all cursor-pointer',
+            'transition-all cursor-pointer overflow-hidden',
             isModelDropdownOpen ? 'ring-2 ring-bolt-elements-focus' : undefined,
           )}
           onClick={() => setIsModelDropdownOpen(!isModelDropdownOpen)}
@@ -595,11 +595,11 @@ export const ModelSelector = ({
           aria-haspopup="listbox"
           tabIndex={0}
         >
-          <div className="flex items-center justify-between">
-            <div className="truncate">{modelList.find((m) => m.name === model)?.label || 'Select model'}</div>
+          <div className="flex items-center justify-between gap-2 min-w-0">
+            <div className="truncate flex-1 min-w-0 text-sm">{modelList.find((m) => m.name === model)?.label || 'Select model'}</div>
             <div
               className={classNames(
-                'i-ph:caret-down w-4 h-4 text-bolt-elements-textSecondary opacity-75',
+                'i-ph:caret-down w-4 h-4 text-bolt-elements-textSecondary opacity-75 flex-shrink-0',
                 isModelDropdownOpen ? 'rotate-180' : undefined,
               )}
             />

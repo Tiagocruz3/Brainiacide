@@ -15,7 +15,15 @@ export const SendButton = ({ show, isStreaming, disabled, onClick }: SendButtonP
     <AnimatePresence>
       {show ? (
         <motion.button
-          className="absolute flex justify-center items-center top-[18px] right-[22px] p-1 bg-accent-500 hover:brightness-94 color-white rounded-md w-[34px] h-[34px] transition-theme disabled:opacity-50 disabled:cursor-not-allowed"
+          className="absolute flex justify-center items-center top-[18px] right-[22px] p-1 rounded-md w-[34px] h-[34px] transition-all disabled:opacity-50 disabled:cursor-not-allowed
+            bg-gradient-to-br from-cyan-500/30 to-cyan-600/20
+            border border-cyan-500/50
+            text-cyan-300
+            hover:from-cyan-500/40 hover:to-cyan-600/30
+            hover:border-cyan-400/70
+            hover:text-cyan-200
+            hover:shadow-[0_0_20px_rgba(0,212,255,0.4)]
+            active:scale-95"
           transition={{ ease: customEasingFn, duration: 0.17 }}
           initial={{ opacity: 0, y: 10 }}
           animate={{ opacity: 1, y: 0 }}
@@ -29,7 +37,7 @@ export const SendButton = ({ show, isStreaming, disabled, onClick }: SendButtonP
             }
           }}
         >
-          <div className="text-lg">
+          <div className="text-lg drop-shadow-[0_0_5px_rgba(0,212,255,0.5)]">
             {!isStreaming ? <div className="i-ph:arrow-right"></div> : <div className="i-ph:stop-circle-bold"></div>}
           </div>
         </motion.button>

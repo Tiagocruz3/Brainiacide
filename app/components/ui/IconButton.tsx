@@ -25,7 +25,7 @@ type IconButtonWithChildrenProps = {
 
 type IconButtonProps = IconButtonWithoutChildrenProps | IconButtonWithChildrenProps;
 
-// Componente IconButton com suporte a refs
+// JARVIS Holographic IconButton component with ref support
 export const IconButton = memo(
   forwardRef(
     (
@@ -46,7 +46,8 @@ export const IconButton = memo(
         <button
           ref={ref}
           className={classNames(
-            'flex items-center text-bolt-elements-item-contentDefault bg-transparent enabled:hover:text-bolt-elements-item-contentActive rounded-md p-1 enabled:hover:bg-bolt-elements-item-backgroundActive disabled:cursor-not-allowed focus:outline-none',
+            'flex items-center text-cyan-500/70 bg-transparent enabled:hover:text-cyan-400 rounded-md p-1 enabled:hover:bg-cyan-500/10 disabled:cursor-not-allowed focus:outline-none transition-all',
+            'enabled:hover:shadow-[0_0_10px_rgba(0,212,255,0.15)]',
             {
               [classNames('opacity-30', disabledClassName)]: disabled,
             },

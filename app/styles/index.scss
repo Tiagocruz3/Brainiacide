@@ -7,67 +7,455 @@
 @use 'components/editor.scss';
 @use 'components/toast.scss';
 
+/* JARVIS Holographic UI Base Styles */
+
 html,
 body {
   height: 100%;
   width: 100%;
   background-color: var(--bolt-elements-bg-depth-1);
+  font-family: 'Orbitron', 'Rajdhani', 'Inter', system-ui, sans-serif;
+}
+
+/* Dark theme holographic enhancements */
+:root[data-theme='dark'] {
+  html,
+  body {
+    background: 
+      var(--jarvis-grid),
+      radial-gradient(ellipse at 50% 0%, rgba(0, 50, 80, 0.4) 0%, transparent 50%),
+      radial-gradient(ellipse at 80% 80%, rgba(0, 100, 150, 0.15) 0%, transparent 40%),
+      radial-gradient(ellipse at 20% 90%, rgba(0, 80, 120, 0.1) 0%, transparent 40%),
+      var(--jarvis-bg-deepspace);
+    background-size: 50px 50px, 100% 100%, 100% 100%, 100% 100%, 100% 100%;
+    background-attachment: fixed;
+  }
 }
 
 :root {
   --gradient-opacity: 0.8;
-  --primary-color: rgba(158, 117, 240, var(--gradient-opacity));
-  --secondary-color: rgba(138, 43, 226, var(--gradient-opacity));
-  --accent-color: rgba(128, 59, 239, var(--gradient-opacity));
-  // --primary-color: rgba(147, 112, 219, var(--gradient-opacity));
-  // --secondary-color: rgba(138, 43, 226, var(--gradient-opacity));
-  // --accent-color: rgba(180, 170, 220, var(--gradient-opacity));
+  --primary-color: rgba(0, 212, 255, var(--gradient-opacity));
+  --secondary-color: rgba(0, 170, 255, var(--gradient-opacity));
+  --accent-color: rgba(0, 240, 255, var(--gradient-opacity));
 }
 
+/* Holographic scrollbar styling */
 .modern-scrollbar {
   overflow: auto;
 
   // WebKit scrollbar styling
   &::-webkit-scrollbar {
-    width: 2px;
-    height: 4px;
+    width: 6px;
+    height: 6px;
   }
 
   &::-webkit-scrollbar-track {
-    background: transparent;
+    background: rgba(0, 20, 40, 0.3);
+    border-radius: 3px;
   }
 
   &::-webkit-scrollbar-thumb {
-    // Use CSS variables for colors
-    background-color: var(--modern-scrollbar-thumb-background);
-    border-radius: 9999px; // pill shape
-    border: 2px solid transparent; // for padding-like effect
-    background-clip: content-box;
-    transition: background-color 0.2s ease-in-out; // Add transition
+    background: linear-gradient(
+      180deg,
+      rgba(0, 212, 255, 0.4) 0%,
+      rgba(0, 150, 200, 0.3) 100%
+    );
+    border-radius: 3px;
+    border: 1px solid rgba(0, 212, 255, 0.2);
+    transition: all 0.3s ease;
   }
 
   &::-webkit-scrollbar-thumb:hover {
-    // Use CSS variable for hover color
-    background-color: var(--modern-scrollbar-thumb-backgroundHover);
+    background: linear-gradient(
+      180deg,
+      rgba(0, 212, 255, 0.6) 0%,
+      rgba(0, 180, 220, 0.5) 100%
+    );
+    box-shadow: 0 0 10px rgba(0, 212, 255, 0.3);
   }
 
   // Firefox support
   scrollbar-width: thin;
-  // Use CSS variables for Firefox colors
-  scrollbar-color: var(--modern-scrollbar-thumb-backgroundHover) transparent; // Use hover color for thumb for consistency
+  scrollbar-color: rgba(0, 212, 255, 0.4) rgba(0, 20, 40, 0.3);
 }
 
 .modern-scrollbar-invert {
   &::-webkit-scrollbar-thumb {
-    // Override with a contrasting color, e.g., primary text color with transparency
-    background-color: color-mix(in srgb, var(--bolt-elements-textPrimary), transparent 70%);
+    background: linear-gradient(
+      180deg,
+      rgba(0, 212, 255, 0.5) 0%,
+      rgba(0, 180, 220, 0.4) 100%
+    );
   }
 
   &::-webkit-scrollbar-thumb:hover {
-    // Darker/more opaque version on hover
-    background-color: color-mix(in srgb, var(--bolt-elements-textPrimary), transparent 50%);
+    background: linear-gradient(
+      180deg,
+      rgba(0, 212, 255, 0.7) 0%,
+      rgba(0, 200, 240, 0.6) 100%
+    );
   }
 
-  // Firefox support for inverted colors
-  scrollbar-color: color-mix(in srgb, var(--bolt-elements-textPrimary), transparent 50%) transparent;
+  scrollbar-color: rgba(0, 212, 255, 0.5) rgba(0, 20, 40, 0.3);
+}
+
+/* Holographic glass panel effect */
+.jarvis-glass {
+  background: var(--jarvis-glass);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid var(--jarvis-glass-border);
+  box-shadow: 
+    inset 0 1px 0 rgba(0, 212, 255, 0.1),
+    inset 0 -1px 0 rgba(0, 0, 0, 0.2),
+    0 0 20px rgba(0, 212, 255, 0.1);
+}
+
+/* Holographic border effect */
+.jarvis-border {
+  border: 1px solid rgba(0, 212, 255, 0.3);
+  box-shadow: 
+    0 0 10px rgba(0, 212, 255, 0.15),
+    inset 0 0 10px rgba(0, 212, 255, 0.05);
+  transition: all 0.3s ease;
+  
+  &:hover {
+    border-color: rgba(0, 212, 255, 0.5);
+    box-shadow: 
+      0 0 20px rgba(0, 212, 255, 0.25),
+      inset 0 0 15px rgba(0, 212, 255, 0.1);
+  }
+}
+
+/* Glowing text effect */
+.jarvis-glow-text {
+  color: var(--jarvis-cyan);
+  text-shadow: 
+    0 0 5px rgba(0, 212, 255, 0.5),
+    0 0 15px rgba(0, 212, 255, 0.3),
+    0 0 30px rgba(0, 212, 255, 0.1);
+}
+
+/* Primary accent glow */
+.jarvis-accent-glow {
+  color: var(--jarvis-cyan-bright);
+  text-shadow: var(--jarvis-glow-text);
+}
+
+/* Alert/danger glow */
+.jarvis-danger-glow {
+  color: var(--jarvis-red-alert);
+  text-shadow: 
+    0 0 5px rgba(255, 51, 68, 0.5),
+    0 0 15px rgba(255, 51, 68, 0.3);
+}
+
+/* Success glow */
+.jarvis-success-glow {
+  color: var(--jarvis-green-ok);
+  text-shadow: 
+    0 0 5px rgba(0, 255, 136, 0.5),
+    0 0 15px rgba(0, 255, 136, 0.3);
+}
+
+/* Gold/warning glow */
+.jarvis-gold-glow {
+  color: var(--jarvis-gold);
+  text-shadow: 
+    0 0 5px rgba(255, 170, 0, 0.5),
+    0 0 15px rgba(255, 170, 0, 0.3);
+}
+
+/* Holographic input fields */
+.jarvis-input {
+  background: rgba(0, 20, 40, 0.6);
+  border: 1px solid rgba(0, 212, 255, 0.3);
+  color: var(--jarvis-cyan);
+  transition: all 0.3s ease;
+  
+  &::placeholder {
+    color: rgba(0, 212, 255, 0.4);
+  }
+  
+  &:focus {
+    outline: none;
+    border-color: var(--jarvis-cyan);
+    box-shadow: 
+      0 0 15px rgba(0, 212, 255, 0.3),
+      inset 0 0 10px rgba(0, 212, 255, 0.1);
+  }
+}
+
+/* Holographic buttons */
+.jarvis-button {
+  background: linear-gradient(
+    180deg,
+    rgba(0, 212, 255, 0.2) 0%,
+    rgba(0, 150, 200, 0.15) 100%
+  );
+  border: 1px solid rgba(0, 212, 255, 0.4);
+  color: var(--jarvis-cyan);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  font-weight: 500;
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+  
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(
+      90deg,
+      transparent 0%,
+      rgba(0, 212, 255, 0.2) 50%,
+      transparent 100%
+    );
+    transition: left 0.5s ease;
+  }
+  
+  &:hover {
+    background: linear-gradient(
+      180deg,
+      rgba(0, 212, 255, 0.35) 0%,
+      rgba(0, 180, 220, 0.25) 100%
+    );
+    border-color: var(--jarvis-cyan);
+    box-shadow: 
+      0 0 20px rgba(0, 212, 255, 0.3),
+      inset 0 0 15px rgba(0, 212, 255, 0.1);
+    
+    &::before {
+      left: 100%;
+    }
+  }
+  
+  &:active {
+    transform: scale(0.98);
+  }
+}
+
+/* HUD-style panel corners */
+.jarvis-hud-corners {
+  position: relative;
+  
+  &::before,
+  &::after {
+    content: '';
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    border: 2px solid var(--jarvis-cyan);
+    pointer-events: none;
+  }
+  
+  &::before {
+    top: -1px;
+    left: -1px;
+    border-right: none;
+    border-bottom: none;
+  }
+  
+  &::after {
+    bottom: -1px;
+    right: -1px;
+    border-left: none;
+    border-top: none;
+  }
+}
+
+/* Technical data display style */
+.jarvis-data {
+  font-family: 'Orbitron', 'Rajdhani', monospace;
+  font-size: 0.85em;
+  color: rgba(0, 212, 255, 0.8);
+  letter-spacing: 0.05em;
+}
+
+/* Circuit pattern background */
+.jarvis-circuit-bg {
+  background-image: 
+    linear-gradient(90deg, rgba(0, 212, 255, 0.03) 1px, transparent 1px),
+    linear-gradient(rgba(0, 212, 255, 0.03) 1px, transparent 1px);
+  background-size: 20px 20px;
+}
+
+/* Holographic card */
+.jarvis-card {
+  background: var(--jarvis-glass);
+  border: 1px solid rgba(0, 212, 255, 0.25);
+  border-radius: 8px;
+  backdrop-filter: blur(15px);
+  -webkit-backdrop-filter: blur(15px);
+  position: relative;
+  overflow: hidden;
+  
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background: linear-gradient(
+      90deg,
+      transparent 0%,
+      rgba(0, 212, 255, 0.5) 50%,
+      transparent 100%
+    );
+  }
+}
+
+/* Hexagon pattern overlay */
+.jarvis-hex-pattern {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='28' height='49' viewBox='0 0 28 49'%3E%3Cg fill-rule='evenodd'%3E%3Cg fill='%2300d4ff' fill-opacity='0.03'%3E%3Cpath d='M13.99 9.25l13 7.5v15l-13 7.5L1 31.75v-15l12.99-7.5zM3 17.9v12.7l10.99 6.34 11-6.35V17.9l-11-6.34L3 17.9zM0 15l12.98-7.5V0h-2v6.35L0 12.69v2.3zm0 18.5L12.98 41v8h-2v-6.85L0 35.81v-2.3zM15 0v7.5L27.99 15H28v-2.31h-.01L17 6.35V0h-2zm0 49v-8l12.99-7.5H28v2.31h-.01L17 42.15V49h-2z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+}
+
+/* Status indicator dots */
+.jarvis-status {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  
+  &.online {
+    background: var(--jarvis-green-ok);
+    box-shadow: 0 0 10px rgba(0, 255, 136, 0.6);
+  }
+  
+  &.warning {
+    background: var(--jarvis-gold);
+    box-shadow: 0 0 10px rgba(255, 170, 0, 0.6);
+  }
+  
+  &.error {
+    background: var(--jarvis-red-alert);
+    box-shadow: 0 0 10px rgba(255, 51, 68, 0.6);
+  }
+  
+  &.processing {
+    background: var(--jarvis-cyan);
+    box-shadow: 0 0 10px rgba(0, 212, 255, 0.6);
+    animation: jarvis-circle-pulse 1.5s ease-in-out infinite;
+  }
+}
+
+/* Arc reactor inspired loader */
+.jarvis-loader {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  border: 3px solid rgba(0, 212, 255, 0.2);
+  border-top-color: var(--jarvis-cyan);
+  animation: jarvis-spin 1s linear infinite;
+  box-shadow: 
+    0 0 15px rgba(0, 212, 255, 0.3),
+    inset 0 0 15px rgba(0, 212, 255, 0.1);
+}
+
+@keyframes jarvis-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* Tooltip holographic style */
+.jarvis-tooltip {
+  background: var(--jarvis-glass);
+  border: 1px solid rgba(0, 212, 255, 0.3);
+  color: var(--jarvis-cyan);
+  padding: 8px 12px;
+  border-radius: 4px;
+  font-size: 0.85em;
+  backdrop-filter: blur(10px);
+  box-shadow: 0 0 20px rgba(0, 212, 255, 0.2);
+}
+
+/* Selection highlight */
+::selection {
+  background: rgba(0, 212, 255, 0.3);
+  color: var(--jarvis-cyan-bright);
+}
+
+::-moz-selection {
+  background: rgba(0, 212, 255, 0.3);
+  color: var(--jarvis-cyan-bright);
+}
+
+/* Focus ring holographic style */
+:focus-visible {
+  outline: 2px solid rgba(0, 212, 255, 0.5);
+  outline-offset: 2px;
+  box-shadow: 0 0 15px rgba(0, 212, 255, 0.3);
+}
+
+/* Link hover effects */
+a {
+  transition: all 0.3s ease;
+  
+  &:hover {
+    text-shadow: 0 0 10px rgba(0, 212, 255, 0.5);
+  }
+}
+
+/* Code block holographic style */
+code, pre {
+  font-family: 'JetBrains Mono', 'Fira Code', 'Consolas', monospace;
+}
+
+/* Divider line glow */
+hr, .divider {
+  border: none;
+  height: 1px;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(0, 212, 255, 0.4) 20%,
+    rgba(0, 212, 255, 0.4) 80%,
+    transparent 100%
+  );
+  margin: 1rem 0;
+}
+
+/* Holographic shadow for elevated elements */
+.jarvis-elevation {
+  box-shadow: 
+    0 4px 6px rgba(0, 0, 0, 0.3),
+    0 0 20px rgba(0, 212, 255, 0.1),
+    inset 0 1px 0 rgba(0, 212, 255, 0.1);
+}
+
+/* Notification badge glow */
+.jarvis-badge {
+  background: var(--jarvis-cyan);
+  color: var(--jarvis-bg-deepspace);
+  font-weight: 600;
+  padding: 2px 8px;
+  border-radius: 10px;
+  font-size: 0.75em;
+  box-shadow: 0 0 10px rgba(0, 212, 255, 0.5);
+}
+
+/* Progress bar holographic */
+.jarvis-progress {
+  background: rgba(0, 20, 40, 0.5);
+  border: 1px solid rgba(0, 212, 255, 0.2);
+  border-radius: 4px;
+  overflow: hidden;
+  height: 8px;
+  
+  &-bar {
+    background: linear-gradient(
+      90deg,
+      rgba(0, 150, 200, 0.8) 0%,
+      var(--jarvis-cyan) 50%,
+      rgba(0, 240, 255, 0.9) 100%
+    );
+    height: 100%;
+    box-shadow: 0 0 15px rgba(0, 212, 255, 0.5);
+    transition: width 0.3s ease;
+  }
 }

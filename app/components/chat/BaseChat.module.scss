@@ -1,3 +1,5 @@
+/* JARVIS Holographic Chat Styles */
+
 .BaseChat {
   &[data-chat-visible='false'] {
     --workbench-inner-width: 100%;
@@ -18,6 +20,7 @@
   opacity: 1;
 }
 
+/* JARVIS Holographic Prompt Effect Container */
 .PromptEffectContainer {
   --prompt-container-offset: 50px;
   --prompt-line-stroke-width: 1px;
@@ -26,8 +29,10 @@
   inset: calc(var(--prompt-container-offset) / -2);
   width: calc(100% + var(--prompt-container-offset));
   height: calc(100% + var(--prompt-container-offset));
+  filter: drop-shadow(0 0 8px rgba(0, 212, 255, 0.3));
 }
 
+/* Holographic animated border line */
 .PromptEffectLine {
   width: calc(100% - var(--prompt-container-offset) + var(--prompt-line-stroke-width));
   height: calc(100% - var(--prompt-container-offset) + var(--prompt-line-stroke-width));
@@ -39,9 +44,70 @@
   stroke: url(#line-gradient);
   stroke-dasharray: 35px 65px;
   stroke-dashoffset: 10;
+  animation: jarvis-prompt-dash 3s linear infinite;
 }
 
+@keyframes jarvis-prompt-dash {
+  to {
+    stroke-dashoffset: -100;
+  }
+}
+
+/* Holographic shine overlay */
 .PromptShine {
   fill: url(#shine-gradient);
   mix-blend-mode: overlay;
+  opacity: 0.6;
+}
+
+/* Additional chat styling */
+.ChatContainer {
+  position: relative;
+  
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: 
+      radial-gradient(ellipse at 50% 0%, rgba(0, 50, 80, 0.2) 0%, transparent 50%),
+      radial-gradient(ellipse at 50% 100%, rgba(0, 30, 50, 0.15) 0%, transparent 40%);
+    pointer-events: none;
+    z-index: 0;
+  }
+}
+
+/* Message input glow effect */
+.MessageInput {
+  position: relative;
+  
+  &:focus-within {
+    &::before {
+      content: '';
+      position: absolute;
+      inset: -2px;
+      border-radius: 12px;
+      background: linear-gradient(
+        90deg,
+        transparent 0%,
+        rgba(0, 212, 255, 0.3) 25%,
+        rgba(0, 212, 255, 0.5) 50%,
+        rgba(0, 212, 255, 0.3) 75%,
+        transparent 100%
+      );
+      z-index: -1;
+      animation: jarvis-input-glow 2s ease-in-out infinite;
+    }
+  }
+}
+
+@keyframes jarvis-input-glow {
+  0%, 100% {
+    opacity: 0.5;
+  }
+  50% {
+    opacity: 1;
+  }
 }

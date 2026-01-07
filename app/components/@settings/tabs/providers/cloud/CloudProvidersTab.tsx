@@ -1,7 +1,7 @@
 import React, { useEffect, useState, useCallback } from 'react';
 import { Switch } from '~/components/ui/Switch';
 import { useSettings } from '~/lib/hooks/useSettings';
-import { URL_CONFIGURABLE_PROVIDERS } from '~/lib/stores/settings';
+import { URL_CONFIGURABLE_PROVIDERS, resetProviderSettings } from '~/lib/stores/settings';
 import type { IProviderConfig } from '~/types/model';
 import { logStore } from '~/lib/stores/logs';
 import { motion } from 'framer-motion';
@@ -158,7 +158,23 @@ const CloudProvidersTab = () => {
             </div>
           </div>
 
-          <div className="flex items-center gap-2">
+          <div className="flex items-center gap-3">
+            <button
+              onClick={() => {
+                resetProviderSettings();
+                toast.success('Provider settings reset to defaults');
+                window.location.reload();
+              }}
+              className={classNames(
+                'px-3 py-1.5 text-xs font-medium rounded-lg',
+                'bg-bolt-elements-background-depth-3 hover:bg-bolt-elements-background-depth-4',
+                'text-bolt-elements-textSecondary hover:text-bolt-elements-textPrimary',
+                'border border-bolt-elements-borderColor',
+                'transition-all duration-200',
+              )}
+            >
+              Reset All
+            </button>
             <span className="text-sm text-bolt-elements-textSecondary">Enable All Cloud</span>
             <Switch checked={categoryEnabled} onCheckedChange={handleToggleCategory} />
           </div>

@@ -86,12 +86,12 @@ const fetchConfiguredProviders = async (): Promise<ConfiguredProvider[]> => {
 const getInitialProviderSettings = (): ProviderSetting => {
   const initialSettings: ProviderSetting = {};
 
-  // Start with default settings
+  // Start with default settings - enable all cloud providers by default
   PROVIDER_LIST.forEach((provider) => {
     initialSettings[provider.name] = {
       ...provider,
       settings: {
-        // Local providers should be disabled by default
+        // Local providers should be disabled by default, all others enabled
         enabled: !LOCAL_PROVIDERS.includes(provider.name),
       },
     };
@@ -104,6 +104,31 @@ const getInitialProviderSettings = (): ProviderSetting => {
     if (savedSettings) {
       try {
         const parsed = JSON.parse(savedSettings);
+
+        // Count how many cloud providers would be enabled after loading saved settings
+        let enabledCloudCount = 0;
+        const cloudProviders = PROVIDER_LIST.filter((p) => !LOCAL_PROVIDERS.includes(p.name));
+
+        cloudProviders.forEach((provider) => {
+          const savedProvider = parsed[provider.name];
+
+          if (savedProvider?.settings?.enabled) {
+            enabledCloudCount++;
+          }
+        });
+
+        // If less than 3 cloud providers are enabled, this might be corrupted settings
+        // Reset to defaults to ensure users have working providers
+        if (enabledCloudCount < 3) {
+          console.warn(
+            `Only ${enabledCloudCount} cloud providers enabled in saved settings. Resetting to defaults.`,
+          );
+          localStorage.removeItem(PROVIDER_SETTINGS_KEY);
+
+          return initialSettings;
+        }
+
+        // Apply saved settings
         Object.entries(parsed).forEach(([key, value]) => {
           if (initialSettings[key]) {
             initialSettings[key].settings = (value as IProviderConfig).settings;
@@ -111,11 +136,36 @@ const getInitialProviderSettings = (): ProviderSetting => {
         });
       } catch (error) {
         console.error('Error parsing saved provider settings:', error);
+        localStorage.removeItem(PROVIDER_SETTINGS_KEY);
       }
     }
   }
 
   return initialSettings;
+};
+
+// Function to reset all provider settings to defaults
+export const resetProviderSettings = () => {
+  if (!isBrowser) {
+    return;
+  }
+
+  localStorage.removeItem(PROVIDER_SETTINGS_KEY);
+  localStorage.removeItem(AUTO_ENABLED_KEY);
+
+  const defaultSettings: ProviderSetting = {};
+
+  PROVIDER_LIST.forEach((provider) => {
+    defaultSettings[provider.name] = {
+      ...provider,
+      settings: {
+        enabled: !LOCAL_PROVIDERS.includes(provider.name),
+      },
+    };
+  });
+
+  providersStore.set(defaultSettings);
+  console.log('Provider settings reset to defaults');
 };
 
 // Auto-enable providers that are configured on the server

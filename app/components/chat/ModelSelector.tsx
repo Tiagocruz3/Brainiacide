@@ -415,7 +415,7 @@ export const ModelSelector = ({
   }
 
   return (
-    <div className="flex gap-2 flex-col sm:flex-row w-full overflow-hidden">
+    <div className="flex gap-2 flex-col sm:flex-row w-full">
       {/* Provider Combobox */}
       <div className="relative flex w-full sm:w-[35%] sm:min-w-[120px] sm:max-w-[180px] flex-shrink-0" onKeyDown={handleProviderKeyDown} ref={providerDropdownRef}>
         <div
@@ -452,7 +452,7 @@ export const ModelSelector = ({
 
         {isProviderDropdownOpen && (
           <div
-            className="absolute z-20 w-full mt-1 py-1 rounded-lg border border-bolt-elements-borderColor bg-bolt-elements-background-depth-2 shadow-lg"
+            className="absolute top-full left-0 z-50 w-full mt-1 py-1 rounded-lg border border-bolt-elements-borderColor bg-bolt-elements-background-depth-2 shadow-lg"
             role="listbox"
             id="provider-listbox"
           >
@@ -573,7 +573,7 @@ export const ModelSelector = ({
       </div>
 
       {/* Model Combobox */}
-      <div className="relative flex w-full sm:flex-1 min-w-0 overflow-hidden" onKeyDown={handleModelKeyDown} ref={modelDropdownRef}>
+      <div className="relative flex w-full sm:flex-1 min-w-0" onKeyDown={handleModelKeyDown} ref={modelDropdownRef}>
         <div
           className={classNames(
             'w-full p-2 rounded-lg border border-bolt-elements-borderColor',
@@ -608,7 +608,7 @@ export const ModelSelector = ({
 
         {isModelDropdownOpen && (
           <div
-            className="absolute z-10 w-full mt-1 py-1 rounded-lg border border-bolt-elements-borderColor bg-bolt-elements-background-depth-2 shadow-lg"
+            className="absolute top-full left-0 z-50 w-full mt-1 py-1 rounded-lg border border-bolt-elements-borderColor bg-bolt-elements-background-depth-2 shadow-lg"
             role="listbox"
             id="model-listbox"
           >
